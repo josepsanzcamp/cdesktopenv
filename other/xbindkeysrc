@@ -1,0 +1,77 @@
+
+# Caja
+"caja"
+	Mod2+Mod4 + e
+
+# XTerm
+"myxterm"
+	Mod2+Mod4 + t
+
+# Vol+
+"myamixer Up"
+	Mod2 + XF86AudioRaiseVolume
+
+# Vol-
+"myamixer Down"
+	Mod2 + XF86AudioLowerVolume
+
+# VolMute
+"myamixer Mute"
+	Mod2 + XF86AudioMute
+
+# Reset
+"myamixer Reset"
+	XF86TouchpadToggle
+
+# Backlight+
+"mybrightness Up"
+	Mod2 + XF86MonBrightnessUp
+
+# Backlight-
+"mybrightness Down"
+	Mod2 + XF86MonBrightnessDown
+
+# BacklightMute
+"mybrightness Mute"
+	Mod2 + XF86ScreenSaver
+
+# Display
+"mybrightness Reset"
+	Mod2+Mod4 + p
+
+# Workspace Up
+"mydtswitch Up"
+	Control+Alt + Up
+
+# Workspace Down
+"mydtswitch Down"
+	Control+Alt + Down
+
+# Workspace Right
+"mydtswitch Right"
+	Control+Alt + Right
+
+# Workspace Left
+"mydtswitch Left"
+	Control+Alt + Left
+
+# Move Up
+"mydtswitch Up2"
+	Control+Shift+Alt + Up
+
+# Move Down
+"mydtswitch Down2"
+	Control+Shift+Alt + Down
+
+# Move Right
+"mydtswitch Right2"
+	Control+Shift+Alt + Right
+
+# Move Left
+"mydtswitch Left2"
+	Control+Shift+Alt + Left
+
+# Screenshoter
+"mate-screenshot -i"
+	Print
+

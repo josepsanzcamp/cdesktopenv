@@ -1,0 +1,21 @@
+
+XClock*foreground: #ffffff
+XClock*background: #000000
+XClock*majorColor: #ffffff
+XClock*minorColor: #ffffff
+XClock*hourColor: #ffffff
+XClock*minuteColor: #ffffff
+XClock*secondColor: #ffffff
+XClock*update: 1
+
+xterm*foreground: #ffffff
+xterm*background: #000000
+xterm*faceName: monospace
+xterm*faceSize: 10
+xterm*geometry: 100x25
+xterm*scrollBar: true
+xterm*rightScrollBar: true
+
+#xterm*scrollbar*foreground: #ffffff
+#xterm*scrollbar*background: #000000
+

@@ -1,0 +1,98 @@
+#!/bin/php -q
+<?php
+function execute($arg="") {
+	//~ echo $arg."\n";
+	ob_start();
+	passthru($arg);
+	$buffer=ob_get_clean();
+	$buffer=trim($buffer);
+	//~ echo $buffer."\n";
+	return $buffer;
+}
+
+function notify_brightness($val) {
+	$iconos=array(
+		"0"=>"notification-display-brightness-off",
+		"10"=>"notification-display-brightness-low",
+		"20"=>"notification-display-brightness-low",
+		"30"=>"notification-display-brightness-low",
+		"40"=>"notification-display-brightness-medium",
+		"50"=>"notification-display-brightness-medium",
+		"60"=>"notification-display-brightness-medium",
+		"70"=>"notification-display-brightness-high",
+		"80"=>"notification-display-brightness-high",
+		"90"=>"notification-display-brightness-high",
+		"100"=>"notification-display-brightness-full",
+	);
+	execute("notify-send -t 1000 -i ".$iconos[$val]." ".$val."% ·".str_repeat("·",$val*0.88));
+}
+
+if(isset($argv[1]) && $argv[1]=="Reset") {
+	$outputs=execute("xrandr");
+	$outputs=explode("\n",$outputs);
+	//~ print_r($outputs);
+	//~ die();
+	foreach($outputs as $key=>$val) {
+		if(trim(substr($val,0,1))!="") {
+			$val=explode(" ",$val);
+			if(isset($val[1]) && in_array($val[1],array("connected","disconnected"))) {
+				$outputs[$key]=$val;
+			} else {
+				unset($outputs[$key]);
+			}
+		} else {
+			unset($outputs[$key]);
+		}
+	}
+	$outputs=array_values($outputs);
+	//~ print_r($outputs);
+	//~ die();
+	$resolution="";
+	foreach($outputs as $output) {
+		if($output[1]=="connected" && $output[2]=="primary") {
+			if(strpos($output[3],"x")!==false && strpos($output[3],"+0+0")!==false) {
+				$resolution=str_replace("+0+0","",$output[3]);
+			}
+		}
+	}
+	//~ echo $resolution;
+	//~ die();
+	$total=0;
+	foreach($outputs as $output) {
+		if($output[1]=="connected") {
+			if($resolution!="") {
+				execute("xrandr --output ${output[0]} --auto --scale-from ${resolution}");
+			} else {
+				execute("xrandr --output ${output[0]} --auto");
+			}
+			$total++;
+		}
+		if($output[1]=="disconnected") {
+			execute("xrandr --output ${output[0]} --off");
+		}
+	}
+	execute("notify-send -t 1000 -i notification-display-brightness '${total} * ${resolution}' ·");
+	die();
+}
+
+$cur=execute("sudo cat /sys/class/backlight/intel_backlight/actual_brightness");
+$min=0;
+$max=execute("sudo cat /sys/class/backlight/intel_backlight/max_brightness");
+if(isset($argv[1])) {
+	if($argv[1]=="Up") {
+		$cur+=$max/10;
+		if($cur>$max) $cur=$max;
+	}
+	if($argv[1]=="Down") {
+		$cur-=$max/10;
+		if($cur<$min) $cur=$min;
+	}
+	if($argv[1]=="Mute") {
+		if($cur!=$min) $cur=$min;
+		else $cur=$max;
+	}
+}
+execute("sudo bash -c 'echo ${cur} > /sys/class/backlight/intel_backlight/brightness'");
+notify_brightness($cur*100/$max);
+echo $cur."\n";
+?>

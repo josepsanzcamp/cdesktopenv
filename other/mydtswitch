@@ -1,0 +1,4 @@
+#!/bin/bash
+
+~/cdecode/dtswitch/dtswitch.php $1
+
