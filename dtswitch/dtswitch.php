@@ -6,6 +6,7 @@ $action=$argv[1];
 chdir(dirname($_SERVER["SCRIPT_NAME"]));
 
 function mypassthru($cmd) {
+	$cmd.=" 2>/dev/null";
 	ob_start();
 	passthru($cmd);
 	$buffer=ob_get_clean();
@@ -14,11 +15,11 @@ function mypassthru($cmd) {
 }
 
 function dtgetallws() {
-	return mypassthru("./dtgetallws.sh 2>/dev/null");
+	return mypassthru("./dtgetallws.sh");
 }
 
 function dtgetcurws() {
-	return mypassthru("./dtgetcurws.sh 2>/dev/null");
+	return mypassthru("./dtgetcurws.sh");
 }
 
 function dtsetws($workspace) {
