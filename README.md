@@ -2,6 +2,8 @@
 This resository contains some useful scripts (developed by me, more or less) used by me to add features to my CDE that runs on my laptop with GNU/Linux!!!
 - If you want more info about de CDE and how to use it in GNU/Linux, go to the sourceforge project: https://sourceforge.net/projects/cdesktopenv/
 
+![cdesktopenv](https://a.fsdn.com/con/app/proj/cdesktopenv/screenshots/CDE-6.png)
+
 # dtswitch
 This folder contains 4 dtksh scripts intended to interact with the CDE:
 - dtgetallws.sh => returns all workspaces
