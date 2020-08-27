@@ -1,8 +1,11 @@
 # cdesktopenv
-This resository contains some useful scripts (developed by me, more or less) used by me to add features to my CDE that runs on my laptop with GNU/Linux!!!
-- If you want more info about de CDE and how to use it in GNU/Linux, go to the sourceforge project: https://sourceforge.net/projects/cdesktopenv/
+This repository contains some useful scripts (developed by me, more or less) used by me to add features to my CDE that runs on my laptop with GNU/Linux!!!
+- If you want more info about CDE and how to use it in GNU/Linux, go to the sourceforge project: https://sourceforge.net/projects/cdesktopenv/
 
 ![cdesktopenv](https://a.fsdn.com/con/app/proj/cdesktopenv/screenshots/CDE-6.png)
+
+# dtksh
+This program is very useful because it's based in the ksh93 and add access to many X resources, this allow to write simple scripts that interact with the user interface by getting for example all workspaces, the current workspace or moving between the diferent workspaces and arrange windows between the workspaces.
 
 # dtswitch
 This folder contains 4 dtksh scripts intended to interact with the CDE:
@@ -22,6 +25,6 @@ This folder contains some useful scripts and extra files to setup the xbindkeys,
 - mydtswitch => this script allow me to use the hotkeys to move between the diferent workspaces
 - myxterm => this script only open an xterm usign the Xresources file
 - xbindkeysrc => this configuration file allow me to configure the xbindkeys daemon
-- Xresources => this configuration file allow me to have the xterm and other defaults defined here
+- Xresources => this configuration file allow me to have the xterm and other defaults values defined here
 
 
