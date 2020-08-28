@@ -1,4 +1,5 @@
 #!/usr/dt/bin/dtksh
+exec 2>/dev/null
 
 XtInitialize TOP a b
 XtDisplay display $TOP

@@ -6,7 +6,6 @@ $action=$argv[1];
 chdir(dirname($_SERVER["SCRIPT_NAME"]));
 
 function mypassthru($cmd) {
-	$cmd.=" 2>/dev/null";
 	ob_start();
 	passthru($cmd);
 	$buffer=ob_get_clean();
