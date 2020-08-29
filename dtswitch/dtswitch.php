@@ -29,6 +29,10 @@ function dtmovews($windowid,$workspace) {
 	mypassthru("./dtmovews.sh ${windowid} ${workspace}");
 }
 
+function dtatom2title($arg) {
+	return mypassthru("./dtatom2title ${arg}");
+}
+
 function getwindowname() {
 	return mypassthru("xdotool getwindowfocus getwindowname");
 }
@@ -49,22 +53,16 @@ function addlog($msg) {
 	file_put_contents("/home/sanz/cdecode/dtswitch/dtswitch.log",date("Y-m-d H:i:s").": ".$msg."\n",FILE_APPEND);
 }
 
-$titles=array(
-	"ws0"=>"One",
-	"ws1"=>"Two",
-	"ws2"=>"Three",
-	"ws3"=>"Four",
-);
-//~ print_r($titles);
-
 $buffer=dtgetallws();
 $buffer=explode("\n",$buffer);
 $atom2title=array();
 $title2atom=array();
 foreach($buffer as $key=>$val) {
 	$val=explode("|",$val);
-	$atom2title[$val[0]]=$titles[$val[1]];
-	$title2atom[$titles[$val[1]]]=$val[0];
+	$val=dtatom2title($val[0]);
+	$val=explode("|",$val);
+	$atom2title[$val[0]]=$val[2];
+	$title2atom[$val[2]]=$val[0];
 }
 //~ print_r($atom2title);
 //~ print_r($title2atom);
