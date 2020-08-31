@@ -7,6 +7,5 @@ XtScreen screen $TOP
 XRootWindowOfScreen root $screen
 
 DtWsmGetCurrentWorkspace $display $root workspace
-XmGetAtomName name $display $workspace
-echo $workspace"|"$name
+./dtatom2title $workspace
 

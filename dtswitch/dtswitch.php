@@ -29,10 +29,6 @@ function dtmovews($windowid,$workspace) {
 	mypassthru("./dtmovews.sh ${windowid} ${workspace}");
 }
 
-function dtatom2title($arg) {
-	return mypassthru("./dtatom2title ${arg}");
-}
-
 function getwindowname() {
 	return mypassthru("xdotool getwindowfocus getwindowname");
 }
@@ -59,18 +55,18 @@ $atom2title=array();
 $title2atom=array();
 foreach($buffer as $key=>$val) {
 	$val=explode("|",$val);
-	$val=dtatom2title($val[0]);
-	$val=explode("|",$val);
 	$atom2title[$val[0]]=$val[2];
 	$title2atom[$val[2]]=$val[0];
 }
 //~ print_r($atom2title);
 //~ print_r($title2atom);
+//~ die();
 
 $buffer=dtgetcurws();
 $buffer=explode("|",$buffer);
-$prev=$atom2title[$buffer[0]];
+$prev=$buffer[2];
 //~ print_r($prev);
+//~ die();
 
 if(isset($title2atom[$action])) {
 	dtsetws($title2atom[$action]);

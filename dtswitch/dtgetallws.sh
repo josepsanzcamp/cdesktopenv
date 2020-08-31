@@ -8,7 +8,6 @@ XRootWindowOfScreen root $screen
 
 DtWsmGetWorkspaceList $display $root workspaces
 for workspace in $(echo $workspaces | tr ',' ' '); do
-	XmGetAtomName name $display $workspace
-	echo $workspace"|"$name
+	./dtatom2title $workspace
 done
 
