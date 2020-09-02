@@ -53,6 +53,7 @@ $buffer=dtgetallws();
 $buffer=explode("\n",$buffer);
 $atom2title=array();
 $title2atom=array();
+$total=count($buffer);
 foreach($buffer as $key=>$val) {
 	$val=explode("|",$val);
 	$atom2title[$val[0]]=$val[2];
@@ -82,24 +83,52 @@ if(substr($action,-1,1)=="2") {
 	$action=substr($action,0,-1);
 }
 
-$map=array(
-	// VERTICAL
-	"One|Down"=>"Three",
-	"Two|Down"=>"Four",
-	"Three|Up"=>"One",
-	"Four|Up"=>"Two",
-	// VERTICAL
-	"One|Right"=>"Two",
-	"Three|Right"=>"Four",
-	"Two|Left"=>"One",
-	"Four|Left"=>"Three",
-	// CONTINUOUS
-	"Two|Right"=>"Three",
-	"Three|Left"=>"Two",
-	"Two|Up"=>"Three",
-	"Three|Down"=>"Two",
+$maps=array(
+	4=>array(
+		// VERTICAL
+		"One|Down"=>"Three",
+		"Two|Down"=>"Four",
+		"Three|Up"=>"One",
+		"Four|Up"=>"Two",
+		// HORIZONTAL
+		"One|Right"=>"Two",
+		"Three|Right"=>"Four",
+		"Two|Left"=>"One",
+		"Four|Left"=>"Three",
+		// CONTINUOUS
+		"Two|Right"=>"Three",
+		"Three|Left"=>"Two",
+		"Two|Up"=>"Three",
+		"Three|Down"=>"Two",
+	),
+	6=>array(
+		// VERTICAL
+		"One|Down"=>"Four",
+		"Two|Down"=>"Five",
+		"Three|Down"=>"Six",
+		"Four|Up"=>"One",
+		"Five|Up"=>"Two",
+		"Six|Up"=>"Three",
+		// HORIZONTAL
+		"One|Right"=>"Two",
+		"Two|Right"=>"Three",
+		"Four|Right"=>"Five",
+		"Five|Right"=>"Six",
+		"Six|Left"=>"Five",
+		"Five|Left"=>"Four",
+		"Three|Left"=>"Two",
+		"Two|Left"=>"One",
+		// CONTINUOUS
+		"Three|Right"=>"Four",
+		"Four|Left"=>"Three",
+		"Four|Down"=>"Two",
+		"Five|Down"=>"Three",
+		"Three|Up"=>"Five",
+		"Two|Up"=>"Four",
+	),
 );
 
+if(isset($maps[$total])) $map=$maps[$total];
 if(isset($map[$prev."|".$action])) {
 	$next=$map[$prev."|".$action];
 	if(isset($windowid)) {
