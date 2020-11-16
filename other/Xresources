@@ -19,3 +19,12 @@ xterm*rightScrollBar: true
 #xterm*scrollbar*foreground: #ffffff
 #xterm*scrollbar*background: #000000
 
+#xterm*selectToClipboard: true
+*VT100*translations:    #override \n\
+    Mod4 <KeyPress> c: copy-selection(CLIPBOARD) \n\
+    Mod4 <KeyPress> v: insert-selection(CLIPBOARD)
+
+xclipboard*foreground: #ffffff
+xclipboard*background: #000000
+xclipboard*borderColor: #ffffff
+

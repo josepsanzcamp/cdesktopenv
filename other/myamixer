@@ -53,6 +53,10 @@ function notify_mute() {
 	execute("notify-send -t 1000 -i notification-audio-volume-muted MUTE ·");
 }
 
+function notify_error() {
+	execute("notify-send -t 1000 -i notification-audio-volume-muted ERROR ·");
+}
+
 $master=get_vol_onoff(execute("amixer sget Master"));
 $capture=get_vol_onoff(execute("amixer sget Capture"));
 //~ print_r($master)."\n";
@@ -63,7 +67,16 @@ switch($action) {
 		if($master["onoff"]=="on") {
 			$master["vol"]=round(min(max($master["vol"]+10,0),100),-1);
 			execute("amixer sset Master ".$master["vol"]."%");
-			notify_volume($master["vol"]);
+			for($i=0;$i<10;$i++) {
+				execute("amixer sset Capture ".$master["vol"]."%");
+				$capture=get_vol_onoff(execute("amixer sget Capture"));
+				if($master["vol"]==$capture["vol"]) break;
+			}
+			if($i<10) {
+				notify_volume($master["vol"]);
+			} else {
+				notify_error();
+			}
 		} else {
 			notify_mute();
 		}
@@ -72,7 +85,16 @@ switch($action) {
 		if($master["onoff"]=="on") {
 			$master["vol"]=round(min(max($master["vol"]-10,0),100),-1);
 			execute("amixer sset Master ".$master["vol"]."%");
-			notify_volume($master["vol"]);
+			for($i=0;$i<10;$i++) {
+				execute("amixer sset Capture ".$master["vol"]."%");
+				$capture=get_vol_onoff(execute("amixer sget Capture"));
+				if($master["vol"]==$capture["vol"]) break;
+			}
+			if($i<10) {
+				notify_volume($master["vol"]);
+			} else {
+				notify_error();
+			}
 		} else {
 			notify_mute();
 		}

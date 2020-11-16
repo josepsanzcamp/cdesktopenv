@@ -71,6 +71,30 @@
 "mydtswitch Left2"
 	Control+Shift+Alt + Left
 
+# Workspace One
+"mydtswitch One"
+	Control+Alt + 1
+
+# Workspace Two
+"mydtswitch Two"
+	Control+Alt + 2
+
+# Workspace Three
+"mydtswitch Three"
+	Control+Alt + 3
+
+# Workspace Four
+"mydtswitch Four"
+	Control+Alt + 4
+
+# Workspace Five
+"mydtswitch Five"
+	Control+Alt + 5
+
+# Workspace Six
+"mydtswitch Six"
+	Control+Alt + 6
+
 # Screenshoter
 "mate-screenshot -i"
 	Print
