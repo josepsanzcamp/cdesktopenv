@@ -46,7 +46,7 @@ function dtfocus($windowid) {
 }
 
 function addlog($msg) {
-	file_put_contents("/home/sanz/cdecode/dtswitch/dtswitch.log",date("Y-m-d H:i:s").": ".$msg."\n",FILE_APPEND);
+	file_put_contents("dtswitch.log",date("Y-m-d H:i:s").": ".$msg."\n",FILE_APPEND);
 }
 
 $buffer=dtgetallws();
