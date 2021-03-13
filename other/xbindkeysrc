@@ -7,21 +7,25 @@
 "myxterm"
 	Mod2+Mod4 + t
 
+# XTerm
+"geany"
+	Mod2+Mod4 + g
+
 # Vol+
-"myamixer Up"
+"mypulseaudio Up"
 	Mod2 + XF86AudioRaiseVolume
 
 # Vol-
-"myamixer Down"
+"mypulseaudio Down"
 	Mod2 + XF86AudioLowerVolume
 
 # VolMute
-"myamixer Mute"
+"mypulseaudio Mute"
 	Mod2 + XF86AudioMute
 
 # Reset
-"myamixer Reset"
-	XF86TouchpadToggle
+#"mypulseaudio Reset"
+#	XF86TouchpadToggle
 
 # Backlight+
 "mybrightness Up"
@@ -96,6 +100,6 @@
 	Control+Alt + 6
 
 # Screenshoter
-"mate-screenshot -i"
+"ksnip"
 	Print
 

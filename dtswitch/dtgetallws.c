@@ -16,7 +16,9 @@ static XtAppContext app_context;
 static Arg args[10];
 int n;
 
-static DtWsmWorkspaceInfo *ppWsInfo;
+static int pNumWorkspaces;
+static Atom *ppaWorkspaces;
+static int i;
 
 /* main - main logic for program */
 void main(int argc, char **argv) {
@@ -26,6 +28,10 @@ void main(int argc, char **argv) {
 	screen=DefaultScreen(display);
 	root=RootWindow(display, screen);
 
-	DtWsmGetWorkspaceInfo(display,root,atoi(argv[1]),&ppWsInfo);
-	printf("%d|%s|%s\n",ppWsInfo->workspace,XGetAtomName(display,ppWsInfo->workspace),ppWsInfo->pchTitle);
+	DtWsmGetWorkspaceList(display,root,&ppaWorkspaces,&pNumWorkspaces);
+	for(i=0;i<pNumWorkspaces;i++) {
+		if(i>0) printf(",");
+		printf("%d",ppaWorkspaces[i]);
+	}
+	printf("\n");
 }

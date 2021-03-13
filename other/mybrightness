@@ -24,7 +24,7 @@ function notify_brightness($val) {
 		"90"=>"notification-display-brightness-high",
 		"100"=>"notification-display-brightness-full",
 	);
-	execute("notify-send -t 1000 -i ".$iconos[$val]." ".$val."% ·".str_repeat("·",$val*0.88));
+	execute("notify-send -t 1000 -i ".$iconos[$val]." ".$val."% ·".str_repeat("·",$val*0.6));
 }
 
 if(isset($argv[1]) && $argv[1]=="Reset") {

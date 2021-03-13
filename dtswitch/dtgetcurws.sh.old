@@ -6,7 +6,6 @@ XtDisplay display $TOP
 XtScreen screen $TOP
 XRootWindowOfScreen root $screen
 
-#~ DtWsmGetCurrentWorkspace $display $root workspace
-workspace=$(./dtgetcurws)
+DtWsmGetCurrentWorkspace $display $root workspace
 ./dtatom2title $workspace
 

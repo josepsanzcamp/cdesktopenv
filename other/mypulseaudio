@@ -1,0 +1,93 @@
+#!/bin/php -q
+<?php
+if(!isset($argv[1])) die("Unknown action\n");
+$action=$argv[1];
+
+function execute($arg="") {
+	//~ echo $arg."\n";
+	ob_start();
+	passthru($arg);
+	$buffer=ob_get_clean();
+	$buffer=trim($buffer);
+	//~ echo $buffer."\n";
+	return $buffer;
+}
+
+function notify_volume($vol) {
+	$iconos=array(
+		"0"=>"notification-audio-volume-off",
+		"10"=>"notification-audio-volume-low",
+		"20"=>"notification-audio-volume-low",
+		"30"=>"notification-audio-volume-low",
+		"40"=>"notification-audio-volume-medium",
+		"50"=>"notification-audio-volume-medium",
+		"60"=>"notification-audio-volume-medium",
+		"70"=>"notification-audio-volume-medium",
+		"80"=>"notification-audio-volume-high",
+		"90"=>"notification-audio-volume-high",
+		"100"=>"notification-audio-volume-high",
+	);
+	$vol2=round(min(max($vol,0),100),-1);
+	execute("notify-send -t 1000 -i ".$iconos[$vol2]." ".$vol."% ·".str_repeat("·",$vol2*0.6));
+}
+
+function notify_mute() {
+	execute("notify-send -t 1000 -i notification-audio-volume-muted MUTE ·");
+}
+
+function notify_error() {
+	execute("notify-send -t 1000 -i notification-audio-volume-muted ERROR ·");
+}
+
+//~ execute("pidof pulseaudio || pulseaudio --start");
+//~ execute("pulseaudio --check || pulseaudio --start");
+$ids=explode(" ",execute("pulsemixer --list|grep -i -e sink: -e source:|grep -i -v monitor|cut -d: -f3|cut -d, -f1|xargs"));
+$volume=intval(execute("pulsemixer --id ${ids[0]} --get-volume"));
+$mute=intval(execute("pulsemixer --id ${ids[0]} --get-mute"));
+
+switch($action) {
+	case "Up":
+		if($mute==0) {
+			$volume=round(min(max($volume+10,0),150),-1);
+			foreach($ids as $id) execute("pulsemixer --id ${id} --set-volume ${volume}");
+			notify_volume($volume);
+		} else {
+			notify_mute();
+		}
+		break;
+	case "Down":
+		if($mute==0) {
+			$volume=round(min(max($volume-10,0),150),-1);
+			foreach($ids as $id) execute("pulsemixer --id ${id} --set-volume ${volume}");
+			notify_volume($volume);
+		} else {
+			notify_mute();
+		}
+		break;
+	case "Mute":
+		$mute=($mute+1)%2;
+		if($mute==0) {
+			foreach($ids as $id) execute("pulsemixer --id ${id} --unmute");
+			notify_volume($volume);
+		} else {
+			foreach($ids as $id) execute("pulsemixer --id ${id} --mute");
+			notify_mute();
+		}
+		break;
+	case "Mixer":
+		execute("pidof pavucontrol || pavucontrol -t 3 1>/dev/null 2>/dev/null &");
+		break;
+	//~ case "Reset":
+		//~ execute("killall pulseaudio");
+		//~ execute("pulseaudio --start 1>/dev/null 2>/dev/null &");
+		//~ break;
+	//~ case "daemon":
+		//~ for(;;) {
+			//~ execute("pidof pulseaudio || pulseaudio --start");
+			//~ execute("pulseaudio --check || pulseaudio --start");
+			//~ sleep(5);
+		//~ }
+		//~ break;
+}
+
+?>
