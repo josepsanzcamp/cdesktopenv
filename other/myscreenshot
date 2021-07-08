@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#pidof mate-screenshot || mate-screenshot -i
+ksnip &
+for i in $(seq 1 1000); do
+	j=$(xdotool search --name ksnip)
+	#~ echo j=$j
+	if [ "$j" != "" ]; then
+		break;
+	fi
+	usleep 1000
+done
+xdotool windowmap $j
+xdotool windowfocus $j
+

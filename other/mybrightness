@@ -27,7 +27,7 @@ function notify_brightness($val) {
 	execute("notify-send -t 1000 -i ".$iconos[$val]." ".$val."% ·".str_repeat("·",$val*0.6));
 }
 
-if(isset($argv[1]) && $argv[1]=="Reset") {
+if(isset($argv[1]) && $argv[1]=="reset") {
 	$outputs=execute("xrandr");
 	$outputs=explode("\n",$outputs);
 	//~ print_r($outputs);
@@ -79,15 +79,15 @@ $cur=execute("sudo cat /sys/class/backlight/intel_backlight/actual_brightness");
 $min=0;
 $max=execute("sudo cat /sys/class/backlight/intel_backlight/max_brightness");
 if(isset($argv[1])) {
-	if($argv[1]=="Up") {
+	if($argv[1]=="up") {
 		$cur+=$max/10;
 		if($cur>$max) $cur=$max;
 	}
-	if($argv[1]=="Down") {
+	if($argv[1]=="down") {
 		$cur-=$max/10;
 		if($cur<$min) $cur=$min;
 	}
-	if($argv[1]=="Mute") {
+	if($argv[1]=="mute") {
 		if($cur!=$min) $cur=$min;
 		else $cur=$max;
 	}

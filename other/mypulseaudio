@@ -46,7 +46,7 @@ $volume=intval(execute("pulsemixer --id ${ids[0]} --get-volume"));
 $mute=intval(execute("pulsemixer --id ${ids[0]} --get-mute"));
 
 switch($action) {
-	case "Up":
+	case "up":
 		if($mute==0) {
 			$volume=round(min(max($volume+10,0),150),-1);
 			foreach($ids as $id) execute("pulsemixer --id ${id} --set-volume ${volume}");
@@ -55,7 +55,7 @@ switch($action) {
 			notify_mute();
 		}
 		break;
-	case "Down":
+	case "down":
 		if($mute==0) {
 			$volume=round(min(max($volume-10,0),150),-1);
 			foreach($ids as $id) execute("pulsemixer --id ${id} --set-volume ${volume}");
@@ -64,7 +64,7 @@ switch($action) {
 			notify_mute();
 		}
 		break;
-	case "Mute":
+	case "mute":
 		$mute=($mute+1)%2;
 		if($mute==0) {
 			foreach($ids as $id) execute("pulsemixer --id ${id} --unmute");
@@ -74,10 +74,10 @@ switch($action) {
 			notify_mute();
 		}
 		break;
-	case "Mixer":
+	case "mixer":
 		execute("pidof pavucontrol || pavucontrol -t 3 1>/dev/null 2>/dev/null &");
 		break;
-	//~ case "Reset":
+	//~ case "reset":
 		//~ execute("killall pulseaudio");
 		//~ execute("pulseaudio --start 1>/dev/null 2>/dev/null &");
 		//~ break;
