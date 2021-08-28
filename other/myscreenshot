@@ -3,13 +3,14 @@
 #pidof mate-screenshot || mate-screenshot -i
 ksnip &
 for i in $(seq 1 1000); do
-	j=$(xdotool search --name ksnip)
+	c=$(xdotool search --name ksnip | wc -l)
+	j=$(xdotool search --name ksnip | tail -1)
+	#~ echo c=$c
 	#~ echo j=$j
-	if [ "$j" != "" ]; then
+	if [ "$c" == "3" -a "$j" != "" ]; then
 		break;
 	fi
 	usleep 1000
 done
 xdotool windowmap $j
 xdotool windowfocus $j
-
